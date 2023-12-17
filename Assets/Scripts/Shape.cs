@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Shape : MonoBehaviour
 {
+    // ENCAPSULATION
     private string m_name;
     public string shapeName
     {
@@ -26,10 +27,10 @@ public abstract class Shape : MonoBehaviour
         }
 
     }
-    public bool isHold { get; protected set; }
 
     [SerializeField]private Material[] shapeColor;
 
+    // ABSTRACTION
     public void ChangeColor()
     {
         int colorIndex = Random.Range(0, shapeColor.Length);
@@ -41,6 +42,7 @@ public abstract class Shape : MonoBehaviour
         }
         meshRenderer.material = shapeColor[colorIndex];
     }
+    // POLYMORPHISM
     public void Move(Vector3 position)
     {
         transform.position = position;
@@ -54,13 +56,8 @@ public abstract class Shape : MonoBehaviour
     private void OnMouseDown()
     {
         ChangeColor();
-        isHold = true;
+        UIHandler.Instance.UpdateText(m_name);
         Debug.Log($"I clicked on {m_name}");
-    }
-    private void OnMouseUp()
-    {
-        isHold = false;
-        Debug.Log($"I release you!");
     }
 
 
